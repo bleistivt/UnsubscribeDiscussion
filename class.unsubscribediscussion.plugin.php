@@ -159,7 +159,7 @@ class UnsubscribeDiscussionPlugin extends Gdn_Plugin {
                 .$Discussion->DiscussionID.'/'
                 .Gdn::Session()->TransientKey()
                 .'?Target='.urlencode($Sender->SelfUrl),
-            'Class' => $Discussion->Unsubscribed ? 'Subscribe Hijack' : 'Resubscribe Hijack'
+            'Class' => $Discussion->Unsubscribed ? 'Resubscribe Hijack' : 'Unsubscribe Hijack'
         );
 
         if (isset($Sender->EventArguments['DiscussionOptions'])) {
