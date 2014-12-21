@@ -3,7 +3,7 @@
 $PluginInfo['UnsubscribeDiscussion'] = array(
     'Name' => 'Unsubscribe Discussion',
     'Description' => 'Adds the ability to selectively turn off notifications for individual discussions.',
-    'Version' => '1.0',
+    'Version' => '1.0.1',
     'RequiredApplications' => array('Vanilla' => '2.1'),
     'HasLocale' => true,
     'MobileFriendly' => true,
@@ -20,7 +20,7 @@ class UnsubscribeDiscussionPlugin extends Gdn_Plugin {
             throw PermissionException('SignedIn');
         }
         if (!$Sender->Request->IsAuthenticatedPostBack()
-            && !Gdn::Session()->ValidateTransientKey(val(1, $Args))
+            && !$Session->ValidateTransientKey(val(1, $Args))
         ) {
             throw PermissionException();
         }
@@ -136,6 +136,10 @@ class UnsubscribeDiscussionPlugin extends Gdn_Plugin {
 
     // Add the unsubscribe/resubscribe option
     public function Base_DiscussionOptions_Handler($Sender) {
+		$Session = Gdn::Session();
+		if (!$Session->IsValid()) {
+			return;
+		}
         $Discussion = $Sender->EventArguments['Discussion'];
 
         // Get the Unsubscribed status, if it is not set.
