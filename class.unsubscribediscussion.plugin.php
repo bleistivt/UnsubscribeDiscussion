@@ -8,7 +8,8 @@ $PluginInfo['UnsubscribeDiscussion'] = array(
     'HasLocale' => true,
     'MobileFriendly' => true,
     'Author' => 'Bleistivt',
-    'AuthorUrl' => 'http://bleistivt.net'
+    'AuthorUrl' => 'http://bleistivt.net',
+    'License' => 'GNU GPL2'
 );
 
 class UnsubscribeDiscussionPlugin extends Gdn_Plugin {
