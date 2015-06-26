@@ -21,7 +21,7 @@ class UnsubscribeDiscussionPlugin extends Gdn_Plugin {
         }
 
         $model = new DiscussionModel();
-        if (!$discussion = $model->getID(val(0, $discussionID))) {
+        if (!$discussion = $model->getID($discussionID)) {
             throw notFoundException('Discussion');
         }
 
