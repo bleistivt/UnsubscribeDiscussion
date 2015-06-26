@@ -75,8 +75,8 @@ class UnsubscribeDiscussionPlugin extends Gdn_Plugin {
         }
     }
 
-    public function discussionModel_beforeGetID_bandler($sender) {
-        $this->discussionModel_beforeGet_bandler($sender);
+    public function discussionModel_beforeGetID_handler($sender) {
+        $this->discussionModel_beforeGet_handler($sender);
     }
 
     // Intercept the notification queue to remove unsubscribed discussion notifications.
