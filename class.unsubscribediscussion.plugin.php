@@ -124,7 +124,7 @@ class UnsubscribeDiscussionPlugin extends Gdn_Plugin {
 
         // Get the Unsubscribed status, if it is not set.
         // This is only needed for announcements, as GetAnnouncements doesn't fire a BeforeGet event.
-        if (!isset($discussion->Unsubscribed)) {
+        if ($discussion->Announce && !isset($discussion->Unsubscribed)) {
             $userDiscussion = Gdn::sql()
                 ->select('Unsubscribed')
                 ->from('UserDiscussion')
