@@ -3,7 +3,7 @@
 $PluginInfo['UnsubscribeDiscussion'] = [
     'Name' => 'Unsubscribe Discussion',
     'Description' => 'Adds the ability to selectively turn off notifications for individual discussions.',
-    'Version' => '1.0.1',
+    'Version' => '1.0.2',
     'RequiredApplications' => ['Vanilla' => '2.1'],
     'HasLocale' => true,
     'MobileFriendly' => true,
