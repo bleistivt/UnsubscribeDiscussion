@@ -1,4 +1,4 @@
-<?php if (!defined('APPLICATION')) exit();
+<?php
 
 $Definition['Unsubscribe'] = 'Unsubscribe';
 $Definition['Resubscribe'] = 'Resubscribe';
