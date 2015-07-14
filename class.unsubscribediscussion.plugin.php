@@ -20,7 +20,7 @@ class UnsubscribeDiscussionPlugin extends Gdn_Plugin {
             throw permissionException();
         }
 
-        $model = new DiscussionModel();
+        $model = $sender->DiscussionModel;
         if (!$discussion = $model->getID($discussionID)) {
             throw notFoundException('Discussion');
         }
