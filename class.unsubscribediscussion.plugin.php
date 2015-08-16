@@ -82,17 +82,18 @@ class UnsubscribeDiscussionPlugin extends Gdn_Plugin {
     // Intercept the notification queue to remove unsubscribed discussion notifications.
     public function commentModel_beforeNotification_handler($sender) {
         // Find out which discussion we are in.
-        $discussion = false;
+        $record = false;
         foreach (ActivityModel::$Queue as $item) {
             if (isset($item['Comment'][0]['RecordID'])) {
-                $record = getRecord('comment', $item['Comment'][0]['RecordID']);
+                $record = Gdn::sql()
+                    ->getWhere('Comment', ['CommentID' => $QItem['Comment'][0]['RecordID']])
+                    ->firstRow(DATASET_TYPE_ARRAY);
                 if ($record) {
-                    $discussion = $record['Discussion'];
                     break;
                 }
             }
         }
-        if (!$discussion) {
+        if (!$record) {
             return;
         }
         // Get all UserIDs that have unsubscribed the discussion.
@@ -100,7 +101,7 @@ class UnsubscribeDiscussionPlugin extends Gdn_Plugin {
             ->select('UserID')
             ->from('UserDiscussion')
             ->where([
-                'DiscussionID' => $discussion['DiscussionID'],
+                'DiscussionID' => $record['DiscussionID'],
                 'Unsubscribed' => 1
             ])
             ->get()
