@@ -68,6 +68,7 @@ class UnsubscribeDiscussionPlugin extends Gdn_Plugin {
         $sender->render('blank', 'utility', 'dashboard');
     }
 
+
     // Add the "Unsubscribed" field to the discussion queries.
     public function discussionModel_beforeGet_handler($sender) {
         if (Gdn::session()->isValid()) {
@@ -75,9 +76,11 @@ class UnsubscribeDiscussionPlugin extends Gdn_Plugin {
         }
     }
 
+
     public function discussionModel_beforeGetID_handler($sender) {
         $this->discussionModel_beforeGet_handler($sender);
     }
+
 
     // Intercept the notification queue to remove unsubscribed discussion notifications.
     public function commentModel_beforeNotification_handler($sender) {
@@ -116,6 +119,7 @@ class UnsubscribeDiscussionPlugin extends Gdn_Plugin {
         }
     }
 
+
     // Add the unsubscribe/resubscribe option
     public function base_discussionOptions_handler($sender, &$args) {
         if (!Gdn::session()->isValid()) {
@@ -153,6 +157,7 @@ class UnsubscribeDiscussionPlugin extends Gdn_Plugin {
         }
     }
 
+
     // Add a new "Unsubscribed" column to the UserDiscussion table.
     public function structure() {
         Gdn::structure()
@@ -160,6 +165,7 @@ class UnsubscribeDiscussionPlugin extends Gdn_Plugin {
             ->column('Unsubscribed', 'tinyint(1)', '0')
             ->set();
     }
+
 
     public function setup() {
         $this->structure();
