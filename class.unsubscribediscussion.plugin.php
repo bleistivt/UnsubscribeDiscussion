@@ -89,7 +89,7 @@ class UnsubscribeDiscussionPlugin extends Gdn_Plugin {
         foreach (ActivityModel::$Queue as $item) {
             if (isset($item['Comment'][0]['RecordID'])) {
                 $record = Gdn::sql()
-                    ->getWhere('Comment', ['CommentID' => $QItem['Comment'][0]['RecordID']])
+                    ->getWhere('Comment', ['CommentID' => $item['Comment'][0]['RecordID']])
                     ->firstRow(DATASET_TYPE_ARRAY);
                 if ($record) {
                     break;
