@@ -142,19 +142,12 @@ class UnsubscribeDiscussionPlugin extends Gdn_Plugin {
             $discussion->Unsubscribed = (bool)$userDiscussion->Unsubscribed;
         }
 
-        $item = [
-            'Label' => t($discussion->Unsubscribed ? 'Resubscribe' : 'Unsubscribe'),
-            'Url' => '/discussion/unsubscribe/'.$discussion->DiscussionID,
-            'Class' => $discussion->Unsubscribed ? 'Resubscribe Hijack' : 'Unsubscribe Hijack'
-        ];
-
-        if (isset($args['DiscussionOptions'])) {
-            // Discussion options in discussion view
-            $args['DiscussionOptions']['UnsubscribeDiscussion'] = $item;
-        } else {
-            // Discussion options in discussions view
-            $sender->Options .= wrap(anchor($item['Label'], $item['Url'], $item['Class']), 'li');
-        }
+        $args['DiscussionOptionsDropdown']->addLink(
+            t($discussion->Unsubscribed ? 'Resubscribe' : 'Unsubscribe'),
+            '/discussion/unsubscribe/'.$discussion->DiscussionID,
+            $discussion->Unsubscribed ? 'resubscribe' : 'unsubscribe',
+            $discussion->Unsubscribed ? 'Resubscribe Hijack' : 'Unsubscribe Hijack'
+        );
     }
 
 
