@@ -121,7 +121,7 @@ class UnsubscribeDiscussionPlugin extends Gdn_Plugin {
 
 
     // Add the unsubscribe/resubscribe option
-    public function base_discussionOptions_handler($sender, &$args) {
+    public function base_discussionOptionsDropdown_handler($sender, &$args) {
         if (!Gdn::session()->isValid()) {
             return;
         }
