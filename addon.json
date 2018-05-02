@@ -1,10 +1,11 @@
 {
     "name": "Unsubscribe Discussion",
     "description": "Adds the ability to selectively turn off notifications for individual discussions.",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "hasLocale": true,
     "mobileFriendly": true,
     "license": "GNU GPL2",
+    "gitHub": "bleistivt/UnsubscribeDiscussion",
     "key": "unsubscribediscussion",
     "type": "addon",
     "authors": [
