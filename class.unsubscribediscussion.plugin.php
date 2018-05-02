@@ -1,17 +1,5 @@
 <?php
 
-$PluginInfo['UnsubscribeDiscussion'] = [
-    'Name' => 'Unsubscribe Discussion',
-    'Description' => 'Adds the ability to selectively turn off notifications for individual discussions.',
-    'Version' => '1.0.3',
-    'RequiredApplications' => ['Vanilla' => '2.1'],
-    'HasLocale' => true,
-    'MobileFriendly' => true,
-    'Author' => 'Bleistivt',
-    'AuthorUrl' => 'http://bleistivt.net',
-    'License' => 'GNU GPL2'
-];
-
 class UnsubscribeDiscussionPlugin extends Gdn_Plugin {
 
     //Ajax endpoint for the unsubscribe click
@@ -121,7 +109,7 @@ class UnsubscribeDiscussionPlugin extends Gdn_Plugin {
 
 
     // Add the unsubscribe/resubscribe option
-    public function base_discussionOptionsDropdown_handler($sender, &$args) {
+    public function base_discussionOptionsDropdown_handler($sender, $args) {
         if (!Gdn::session()->isValid()) {
             return;
         }
