@@ -130,7 +130,8 @@ class UnsubscribeDiscussionPlugin extends Gdn_Plugin {
             $discussion->Unsubscribed = (bool)$userDiscussion->Unsubscribed;
         }
 
-        $args['DiscussionOptionsDropdown']->addLink(
+        $args['DiscussionOptionsDropdown']->addLinkIf(
+            (bool)$discussion->Participated,
             t($discussion->Unsubscribed ? 'Resubscribe' : 'Unsubscribe'),
             '/discussion/unsubscribe/'.$discussion->DiscussionID,
             $discussion->Unsubscribed ? 'resubscribe' : 'unsubscribe',
