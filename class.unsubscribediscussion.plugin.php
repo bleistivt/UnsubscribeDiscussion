@@ -110,7 +110,8 @@ class UnsubscribeDiscussionPlugin extends Gdn_Plugin {
 
     // Add the unsubscribe/resubscribe option
     public function base_discussionOptionsDropdown_handler($sender, $args) {
-        if (!Gdn::session()->isValid()) {
+        $session = Gdn::session();
+        if (!$session->isValid()) {
             return;
         }
         $discussion = $args['Discussion'];
@@ -119,11 +120,11 @@ class UnsubscribeDiscussionPlugin extends Gdn_Plugin {
         // This is only needed for announcements, as GetAnnouncements doesn't fire a BeforeGet event.
         if ($discussion->Announce && !isset($discussion->Unsubscribed)) {
             $userDiscussion = Gdn::sql()
-                ->select('Unsubscribed')
+                ->select('Unsubscribed, Participated')
                 ->from('UserDiscussion')
                 ->where([
                     'DiscussionID' => $discussion->DiscussionID,
-                    'UserID' => Gdn::session()->UserID
+                    'UserID' => $session->UserID
                 ])
                 ->get()
                 ->firstRow();
@@ -131,7 +132,7 @@ class UnsubscribeDiscussionPlugin extends Gdn_Plugin {
         }
 
         $args['DiscussionOptionsDropdown']->addLinkIf(
-            (bool)$discussion->Participated,
+            (bool)$discussion->Participated || $discussion->InsertUserID == $session->UserID,
             t($discussion->Unsubscribed ? 'Resubscribe' : 'Unsubscribe'),
             '/discussion/unsubscribe/'.$discussion->DiscussionID,
             $discussion->Unsubscribed ? 'resubscribe' : 'unsubscribe',
