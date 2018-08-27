@@ -1,7 +1,7 @@
 {
     "name": "Unsubscribe Discussion",
     "description": "Adds the ability to selectively turn off notifications for individual discussions.",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "hasLocale": true,
     "mobileFriendly": true,
     "license": "GNU GPL2",
@@ -13,8 +13,5 @@
             "name": "Bleistivt",
             "homepage": "http://bleistivt.net"
         }
-    ],
-    "require": {
-        "vanilla": ">=2.1"
-    }
+    ]
 }
