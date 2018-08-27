@@ -120,7 +120,7 @@ class UnsubscribeDiscussionPlugin extends Gdn_Plugin {
         // This is only needed for announcements, as GetAnnouncements doesn't fire a BeforeGet event.
         if ($discussion->Announce && !isset($discussion->Unsubscribed)) {
             $userDiscussion = Gdn::sql()
-                ->select('Unsubscribed, Participated')
+                ->select('Unsubscribed')
                 ->from('UserDiscussion')
                 ->where([
                     'DiscussionID' => $discussion->DiscussionID,
