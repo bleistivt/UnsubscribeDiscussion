@@ -128,7 +128,7 @@ class UnsubscribeDiscussionPlugin extends Gdn_Plugin {
                 ])
                 ->get()
                 ->firstRow();
-            $discussion->Unsubscribed = (bool)$userDiscussion->Unsubscribed;
+            $discussion->Unsubscribed = (bool)($userDiscussion->Unsubscribed ?? 0);
         }
 
         $args['DiscussionOptionsDropdown']->addLinkIf(
