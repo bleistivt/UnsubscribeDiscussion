@@ -1,6 +1,10 @@
 <?php
 
-class UnsubscribeDiscussionPlugin extends Gdn_Plugin {
+use Garden\StaticCacheTranslationTrait;
+
+class UnsubscribeDiscussionPlugin extends \Gdn_Plugin {
+
+    use StaticCacheTranslationTrait;
 
     //Ajax endpoint for the unsubscribe click
     public function discussionController_unsubscribe_create($sender, $discussionID) {
@@ -36,12 +40,12 @@ class UnsubscribeDiscussionPlugin extends Gdn_Plugin {
 
         if ($unsubscribed) {
             $sender->informMessage(
-                sprite('Eye', 'InformSprite').t('You will no longer be notified about this discussion.'),
+                sprite('Eye', 'InformSprite').self::t('You will no longer be notified about this discussion.'),
                 'Dismissable AutoDismiss HasSprite'
             );
         } else {
             $sender->informMessage(
-                sprite('Eye', 'InformSprite').t('You will receive new notifications about this discussion.'),
+                sprite('Eye', 'InformSprite').self::t('You will receive new notifications about this discussion.'),
                 'Dismissable AutoDismiss HasSprite'
             );
         }
@@ -62,6 +66,11 @@ class UnsubscribeDiscussionPlugin extends Gdn_Plugin {
         if (Gdn::session()->isValid()) {
             $sender->SQL->select('w.Unsubscribed');
         }
+    }
+
+
+    public function discussionModel_beforeGetAnnouncements_handler($sender) {
+        $this->discussionModel_beforeGet_handler($sender);
     }
 
 
@@ -117,8 +126,8 @@ class UnsubscribeDiscussionPlugin extends Gdn_Plugin {
         $discussion = $args['Discussion'];
 
         // Get the Unsubscribed status, if it is not set.
-        // This is only needed for announcements, as GetAnnouncements doesn't fire a BeforeGet event.
-        if ($discussion->Announce && !isset($discussion->Unsubscribed)) {
+        // This is only needed for endpoints that do not fire a BeforeGet event.
+        if (!isset($discussion->Unsubscribed)) {
             $userDiscussion = Gdn::sql()
                 ->select('Unsubscribed')
                 ->from('UserDiscussion')
@@ -133,7 +142,7 @@ class UnsubscribeDiscussionPlugin extends Gdn_Plugin {
 
         $args['DiscussionOptionsDropdown']->addLinkIf(
             (bool)$discussion->Participated || $discussion->InsertUserID == $session->UserID,
-            t($discussion->Unsubscribed ? 'Resubscribe' : 'Unsubscribe'),
+            self::t($discussion->Unsubscribed ? 'Resubscribe' : 'Unsubscribe'),
             '/discussion/unsubscribe/'.$discussion->DiscussionID,
             $discussion->Unsubscribed ? 'resubscribe' : 'unsubscribe',
             $discussion->Unsubscribed ? 'Resubscribe Hijack' : 'Unsubscribe Hijack'
