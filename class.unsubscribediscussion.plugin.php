@@ -62,20 +62,27 @@ class UnsubscribeDiscussionPlugin extends \Gdn_Plugin {
 
 
     // Add the "Unsubscribed" field to the discussion queries.
-    public function discussionModel_beforeGet_handler($sender) {
+    /*public function discussionModel_beforeGet_handler($sender) {
+        if (Gdn::session()->isValid()) {
+            $sender->SQL->select('w.Unsubscribed');
+        }
+    }*/
+
+    public function discussionModel_afterDiscussionSummaryQuery_handler($sender) {
         if (Gdn::session()->isValid()) {
             $sender->SQL->select('w.Unsubscribed');
         }
     }
 
-
-    public function discussionModel_beforeGetAnnouncements_handler($sender) {
+    /*public function discussionModel_beforeGetAnnouncements_handler($sender) {
         $this->discussionModel_beforeGet_handler($sender);
-    }
+    }*/
 
 
     public function discussionModel_beforeGetID_handler($sender) {
-        $this->discussionModel_beforeGet_handler($sender);
+        if (Gdn::session()->isValid()) {
+            $sender->SQL->select('w.Unsubscribed');
+        }
     }
 
 
