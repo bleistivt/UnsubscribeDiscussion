@@ -1,7 +1,7 @@
 {
     "name": "Unsubscribe Discussion",
     "description": "Adds the ability to selectively turn off notifications for individual discussions.",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "hasLocale": true,
     "mobileFriendly": true,
     "license": "GNU GPL2",
